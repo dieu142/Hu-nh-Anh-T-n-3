@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tỏ Tình Vũ Trụ</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .message {
+      position: absolute;
+      color: pink;
+      font-weight: bold;
+      text-shadow: 0 0 5px white;
+      animation-name: floatUp;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: red;
+      animation-name: floatUp;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    #finalMessage {
+      position: fixed;
+      bottom: 20px;
+      width: 90%;
+      left: 5%;
+      color: white;
+      font-size: 26px;
+      font-weight: bold;
+      text-shadow: 0 0 5px black;
+      background: rgba(255, 20, 147, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      pointer-events: none;
+      z-index: 9999; /* Thêm dòng này để hiện lên trên cùng */
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg" />
+  Trình duyệt của bạn không hỗ trợ audio.
+</audio>
+
+<button id="playButton" style="position: fixed; top: 20px; left: 20px; z-index: 10000; padding: 10px 20px; font-size: 16px;">
+  Bật nhạc nền
+</button>
+
+<script>
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('playButton');
+
+  btn.addEventListener('click', () => {
+    audio.play();
+    btn.style.display = 'none'; // ẩn nút sau khi bấm
+  });
+</script>
+
+</audio>
+
+<script>
+  const messages = ["Huỳnh Anh Tín 💖", "Happy Birthday anh yeuu 🥳"];
+  const hearts = ["❤️", "💕", "💗", "💓", "💘"];
+
+  function createFloatingText() {
+    const text = document.createElement("div");
+    text.classList.add("message");
+    text.innerText = messages[Math.floor(Math.random() * messages.length)];
+    text.style.left = Math.random() * window.innerWidth + "px";
+    text.style.top = window.innerHeight + "px";
+    text.style.fontSize = (Math.random() * 12 + 12) + "px";
+    text.style.animationDuration = (Math.random() * 4 + 4) + "s";
+    document.body.appendChild(text);
+    setTimeout(() => text.remove(), 10000);
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = window.innerHeight + "px";
+    heart.style.fontSize = (Math.random() * 20 + 24) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 10000);
+  }
+
+  const textInterval = setInterval(createFloatingText, 700);
+  const heartInterval = setInterval(createHeart, 400);
+
+  setTimeout(() => {
+    clearInterval(textInterval);
+    clearInterval(heartInterval);
+
+    document.querySelectorAll('.message, .heart').forEach(el => el.remove());
+
+    const finalMsg = document.getElementById('finalMessage');
+    finalMsg.style.pointerEvents = 'auto';
+    finalMsg.style.opacity = 1;
+
+    setTimeout(() => {
+      finalMsg.style.opacity = 0;
+    }, 20000);
+
+  }, 10000);
+</script>
+
+<div id="finalMessage">
+  Cảm ơn anh vì đã luôn kiên nhẫn và ở bên em trong những lúc khó khăn nhất. Em xin lỗi vì những lúc không hiểu anh, làm anh buồn. Em sẽ cố gắng trở thành người tốt hơn, luôn yêu thương và trân trọng anh. Mong rằng chúng ta sẽ cùng nhau xây dựng một tương lai hạnh phúc. Em yêu anh nhiều lắm!
+</div>
+
+</body>
+</html>
